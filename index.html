@@ -2,121 +2,281 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfólio de Wellington José — Desenvolvedor Full Stack apaixonado por criar experiências digitais modernas.">
+  <title>Wellington José | Desenvolvedor Full Stack</title>
 
-    <title>Portfólio</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Devicons (ícones de tecnologias) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
 
-    <div class="particulas"></div>
+  <!-- ================================================
+       NAV
+  ================================================ -->
+  <nav class="nav" id="nav">
+    <div class="nav-container">
+      <a href="#inicio" class="nav-logo">WJ<span>.</span></a>
 
-    <nav class="navegacao">
-        <ul class="menu">
-            <li><a href="#inicio" class="menu-link">Início</a></li>
-            <li><a href="#sobre" class="menu-link">Sobre</a></li>
-            <li><a href="#projetos" class="menu-link">Projetos</a></li>
-            <li><a href="#contato" class="menu-link">Contato</a></li>
-        </ul>
-    </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-    <main id="inicio" class="cabecalho">
+      <ul class="nav-menu" id="nav-menu" role="list">
+        <li><a href="#inicio"        class="nav-link">Início</a></li>
+        <li><a href="#sobre"         class="nav-link">Sobre</a></li>
+        <li><a href="#projetos"      class="nav-link">Projetos</a></li>
+        <li><a href="#certificados"  class="nav-link">Certificados</a></li>
+        <li><a href="#contato"       class="nav-link">Contato</a></li>
+      </ul>
+    </div>
+  </nav>
 
-        <img src="imgs/eu.jpag.jpg" alt="foto principal do site" class="foto-perfil">
-        <h1>Wellington José</h1>
-        <p class="dev">Desenvolvedor Full Stack</p>
-    </main>
+  <!-- ================================================
+       HERO
+  ================================================ -->
+  <section id="inicio" class="hero">
+    <!-- Fundo animado -->
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-blob hero-blob--1"></div>
+      <div class="hero-blob hero-blob--2"></div>
+      <div class="hero-blob hero-blob--3"></div>
+    </div>
 
-    <section id="sobre" class="sobre">
-        <h2 class="sobre-titulo">Sobre Min</h2>
-        <div class="sobre-caixa">
-            <p class="quem-sou-eu">Eu me chamo, Wellington, estou em transição de carreira para a área de T.I, estou
-                desenvolvendo FRONT END, e tenho alguns projetos em desenvolvimento, gosto de trabalhar em equipe, amo
-                descobrir.</p>
+    <div class="container hero-container">
+      <!-- Conteúdo -->
+      <div class="hero-content">
+        <span class="hero-greeting reveal">Olá👋 me chamo</span>
+        <h1 class="hero-name reveal">Wellington José</h1>
+        <p class="hero-subtitle reveal">
+          <span id="typewriter" aria-live="polite" aria-label="Título profissional"></span><span class="typewriter-cursor" aria-hidden="true">|</span>
+        </p>
+        <p class="hero-bio reveal">
+          Desenvolvedor apaixonado por criar experiências digitais incríveis,
+          focado em soluções modernas, acessíveis e escaláveis.
+        </p>
+        <div class="hero-actions reveal">
+          <a href="#projetos" class="btn btn--primary">Ver Projetos</a>
+          <a href="#contato"  class="btn btn--outline">Entre em Contato</a>
         </div>
-    </section>
+      </div>
 
-    <section id="projetos" class="projetos">
-        <h2 class="projeto-titulo">Meus Projetos</h2>
-        <div class="projetos-caixa">
+      <!-- Foto -->
+      <div class="hero-photo reveal">
+        <div class="hero-photo-ring" aria-hidden="true"></div>
+        <img
+          src="assets/imgs/eu.jpag.jpg"
+          alt="Wellington José"
+          class="hero-img"
+          width="300"
+          height="300"
+        >
+      </div>
+    </div>
+  </section>
 
-            <div class="projetos-cards">
-                <img src="imgs/lista-contato.png" alt="lista de contatos" class="img-projetos">
+  <!-- ================================================
+       SOBRE
+  ================================================ -->
+  <section id="sobre" class="about section">
+    <div class="container">
+      <header class="section-header reveal">
+        <span class="section-tag">Quem sou eu</span>
+        <h2 class="section-title">Sobre Mim</h2>
+      </header>
 
-                <div class="caixa-texto-projetos">
-                    <h3 class="info-projetos">Lista de Contatos</h3>
-                    <p class="paragrafo-projetos">Uma lista de contatos web, que lhe ajuda a ter seus contatos a um
-                        click, ajudamos a protejer seus contatos corporativos, não deixe seus contatos mais importantes
-                        estarem vulneráveis.</p>
-                </div>
+      <div class="about-grid">
+        <!-- Bio + stats -->
+        <div class="about-text reveal">
+          <p>
+            Olá! Me chamo <strong>Wellington</strong>. Sou desenvolvedor atuando na área de T.I,
+            com foco em <strong>Front-End</strong> e expandindo para <strong>Full Stack</strong>.
+            Atualmente trabalho com a linguagem <strong>Delphi</strong> e utilizo
+            <strong>Inteligência Artificial</strong> no dia a dia com o Claude AI.
+          </p>
+          <p>
+            Gosto muito de trabalhar em equipe e sou apaixonado por aprender e descobrir novas soluções.
+            Acredito que a tecnologia tem o poder de transformar vidas — e é isso que me motiva todo dia.
+          </p>
+
+          <div class="about-stats">
+            <div class="stat-item">
+              <span class="stat-number" data-target="3" data-suffix="+">0</span>
+              <span class="stat-label">Projetos</span>
             </div>
-
-            <div class="projetos-cards">
-                <img src="imgs/site-cursos.png" alt="site de cursos" class="img-projetos">
-
-                <div class="caixa-texto-projetos">
-                    <h3 class="info-projetos">Site de Cursos</h3>
-                    <p class="paragrafo-projetos">Apresentamos um site que ira te proporcionar oportunidades para uma
-                        carreira promissora, temos diversos cursos que vão te levar para o futuro brilhante.</p>
-                </div>
+            <div class="stat-item">
+              <span class="stat-number" data-target="1" data-suffix="+">0</span>
+              <span class="stat-label">Ano atuando</span>
             </div>
-
-            <div class="projetos-cards">
-                <img src="imgs/planos-operadora.png" alt="site de planos de operadora" class="img-projetos">
-
-                <div class="caixa-texto-projetos">
-                    <h3 class="info-projetos">Site de Planos</h3>
-                    <p class="paragrafo-projetos">Tenha um site com os melhores preços para seus clientes, oferecendo o
-                        melhor plano, com os melhores preços, mantenha-os atualizados.</p>
-                </div>
+            <div class="stat-item">
+              <span class="stat-number" data-target="100" data-suffix="%">0</span>
+              <span class="stat-label">Dedicação</span>
             </div>
-
+          </div>
         </div>
-    </section>
 
-    <section id="contato" class="contato">
-        <h2 class="contato-titulo">Entre em Contato</h2>
+        <!-- Skills -->
+        <div class="skills-section reveal">
+          <h3 class="skills-title">Tecnologias</h3>
+          <div class="skills-grid" id="skills-grid" role="list" aria-label="Tecnologias">
+            <!-- Renderizado via JS — veja script.js → dados.skills -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <form class="formulario-contato" id="formulario" onsubmit="enviarwhattsapp(event)">
-            <div class="nome-fomr">
-                <input placeholder="Nome" class="campo-form" id="nome">
+  <!-- ================================================
+       PROJETOS
+  ================================================ -->
+  <section id="projetos" class="projects section">
+    <div class="container">
+      <header class="section-header reveal">
+        <span class="section-tag">Meu trabalho</span>
+        <h2 class="section-title">Projetos</h2>
+      </header>
+
+      <div class="projects-carousel reveal">
+        <button class="carousel-arrow carousel-arrow--prev" id="proj-prev" aria-label="Projeto anterior">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="projects-track" id="projects-grid"></div>
+        <button class="carousel-arrow carousel-arrow--next" id="proj-next" aria-label="Próximo projeto">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <div class="carousel-dots" id="projects-dots"></div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       CERTIFICADOS
+  ================================================ -->
+  <section id="certificados" class="certs section">
+    <div class="container">
+      <header class="section-header reveal">
+        <span class="section-tag">Conquistas</span>
+        <h2 class="section-title">Certificados</h2>
+      </header>
+
+      <div class="certs-carousel reveal">
+        <button class="carousel-arrow carousel-arrow--prev" id="certs-prev" aria-label="Certificado anterior">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="certs-track" id="certs-grid"></div>
+        <button class="carousel-arrow carousel-arrow--next" id="certs-next" aria-label="Próximo certificado">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <div class="carousel-dots" id="certs-dots"></div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       CONTATO
+  ================================================ -->
+  <section id="contato" class="contact section">
+    <div class="container">
+
+      <header class="section-header reveal">
+        <span class="section-tag">Vamos conversar</span>
+        <h2 class="section-title">Entre em Contato</h2>
+      </header>
+
+      <div class="contact-grid">
+
+        <!-- Lado esquerdo: info -->
+        <div class="contact-info reveal">
+          <p>
+            Estou aberto a novas <strong>oportunidades</strong>, projetos e colaborações.
+            Se quiser conversar sobre uma ideia ou projeto, é só me chamar!
+          </p>
+          <p>
+            Responderei o mais rápido possível por e-mail.
+          </p>
+
+          <div class="contact-social">
+            <a
+              href="https://github.com/wellingtonJS1212"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-social-link"
+              aria-label="Perfil no GitHub"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+              </svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Lado direito: formulário -->
+        <div class="contact-form-wrap reveal">
+          <h3 class="contact-form-title">Envie uma mensagem</h3>
+
+          <form id="contato-form" novalidate>
+            <div class="form-group">
+              <label for="nome">Nome</label>
+              <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required autocomplete="name">
             </div>
 
-            <div class="nome-fomr">
-                <textarea class="campo-form tamanho-area" placeholder="Digite sua mensagem" rows="5"
-                    id="mensagem"></textarea>
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" placeholder="seu@email.com" required autocomplete="email">
             </div>
 
-            <button type="submit" class="botao-form">Enviar Whatsapp</button>
-        </form>
+            <div class="form-group">
+              <label for="mensagem">Mensagem</label>
+              <textarea id="mensagem" name="mensagem" rows="4" placeholder="Sua mensagem..." required></textarea>
+            </div>
 
-        <section class="RedeSocial">
-            <a href="https://www.linkedin.com/feed/?trk=guest_homepage-basic_nav-header-signin">Linkedin</a>
-            
-            <a href="#">GitHube</a>
-        </section>
+            <div class="form-group">
+              <label for="pergunta">Pergunta <span class="form-label-hint">(responderei por e-mail)</span></label>
+              <textarea id="pergunta" name="pergunta" rows="3" placeholder="Tem alguma dúvida?" required></textarea>
+            </div>
 
-    </section>
+            <button type="submit" class="btn btn--primary btn--full" id="btn_form">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+              Enviar Mensagem
+            </button>
 
-    <script>
-        function enviarwhattsapp(event) {
+            <p class="form-status" id="status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
 
-            event.preventDefault();
+      </div>
+    </div>
+  </section>
 
-            const nome = document.getElementById("nome").value;
-            const mensagem = document.getElementById("mensagem").value;
-            const telefone = '+5581999995176'
+  <!-- ================================================
+       FOOTER
+  ================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <p>Desenvolvido com <span class="heart" aria-label="amor">♥</span> por <strong>Wellington José</strong></p>
+      <p class="footer-copy">© <span id="footer-year"></span> Todos os direitos reservados.</p>
+    </div>
+  </footer>
 
-            const texto = `Olá! me chamo ${nome}, ${mensagem}`;
-            const msgFormatada = encodeURIComponent(texto);
-
-            const url = `https://wa.me/${telefone}?text=${msgFormatada}`;
-            window.open(url, '_blank');
-        }
-    </script>
-
+  <script src="assets/js/script.js"></script>
 </body>
 
 </html>
