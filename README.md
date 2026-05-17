@@ -474,28 +474,76 @@ emailjs.send('service_zxf677u', 'template_o7dsb9d', dados)  // Service ID + Temp
 
 ## Deploy no GitHub Pages
 
-Para publicar o portfólio gratuitamente:
+O portfólio está publicado e acessível em:
 
-**1. Suba o projeto:**
+```
+https://wellingtonJS1212.github.io/Meuportfolio/
+```
+
+O repositório no GitHub fica em:
+
+```
+https://github.com/wellingtonJS1212/Meuportfolio
+```
+
+---
+
+### Como atualizar o site após qualquer alteração
+
+Toda vez que fizer uma mudança no projeto (adicionar projeto, certificado, corrigir texto, etc.), execute estes 3 comandos no terminal dentro da pasta do projeto:
+
 ```bash
 git add .
-git commit -m "atualiza portfólio"
+git commit -m "descrição clara do que foi alterado"
 git push origin main
 ```
 
-**2. Ative o GitHub Pages:**
-- Repositório → **Settings → Pages**
+O site atualiza automaticamente em **~1 minuto** após o push.
+
+**Exemplos de mensagens de commit:**
+```bash
+git commit -m "adiciona projeto Lista de Tarefas"
+git commit -m "adiciona certificado React — DIO"
+git commit -m "atualiza texto da seção Sobre Mim"
+git commit -m "corrige foto de perfil"
+```
+
+---
+
+### Como publicar pela primeira vez em um repositório novo
+
+Se precisar recriar o repositório ou publicar em uma conta diferente:
+
+**1. Crie o repositório no GitHub:**
+- Acesse **[github.com/new](https://github.com/new)**
+- **Repository name:** `Meuportfolio` (ou o nome que preferir)
+- Marque **Public**
+- **NÃO** marque nenhuma opção de inicializar (sem README, sem .gitignore)
+- Clique em **Create repository**
+
+**2. Conecte o projeto local ao novo repositório:**
+```bash
+git remote set-url origin https://github.com/SEU-USUARIO/NOME-DO-REPO.git
+git push origin main
+```
+
+**3. Ative o GitHub Pages:**
+- No repositório → **Settings → Pages**
 - Source: **Deploy from a branch**
 - Branch: `main` — Pasta: `/ (root)`
 - Clique em **Save**
 
-**3. Acesse:**
+**4. Aguarde ~2 minutos e acesse:**
 ```
-https://wellingtonJS1212.github.io/nome-do-repositorio/
+https://SEU-USUARIO.github.io/NOME-DO-REPO/
 ```
 
-> A primeira publicação leva ~2 minutos.  
-> Todo `git push` atualiza o site automaticamente.
+---
+
+### Verificar se o site está no ar
+
+Para confirmar que o site está funcionando, acesse a URL acima no navegador.  
+Se retornar erro 404, verifique se o GitHub Pages foi ativado corretamente em **Settings → Pages**.
 
 ---
 
