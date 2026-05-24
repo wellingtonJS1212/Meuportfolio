@@ -1142,8 +1142,8 @@ body.light-theme .theme-icon--moon { display: block; }
 /* Lente da lupa */
 .mag-lens {
   position: fixed;
-  width: 140px;
-  height: 140px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   overflow: hidden;
   pointer-events: none;

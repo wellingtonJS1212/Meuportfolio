@@ -479,7 +479,7 @@ function initCursor() {
   document.body.classList.add('custom-cursor');
 
   const SCALE  = 2.5;   /* fator de ampliação */
-  const RADIUS = 70;    /* metade dos 140px da lente */
+  const RADIUS = 45;    /* metade dos 90px da lente */
 
   /* ── Constrói o clone após o conteúdo dinâmico renderizar ── */
   setTimeout(() => {
