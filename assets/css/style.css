@@ -1089,6 +1089,60 @@ button { font-family: inherit; }
 .footer-copy { margin-top: var(--sp-2); }
 
 /* ================================================
+   CURSOR PERSONALIZADO
+   Visível apenas em dispositivos com mouse (pointer: fine)
+================================================ */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity var(--t-base);
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--clr-primary-light);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.9);
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(99, 102, 241, 0.55);
+  z-index: 9998;
+  transition: width 0.25s ease, height 0.25s ease,
+              border-color 0.25s ease, background 0.25s ease,
+              opacity var(--t-base);
+}
+
+.cursor-ring.is-hover {
+  width: 56px;
+  height: 56px;
+  border-color: rgba(99, 102, 241, 0.9);
+  background: rgba(99, 102, 241, 0.07);
+}
+
+.cursor-dot.visible,
+.cursor-ring.visible {
+  opacity: 1;
+}
+
+body.custom-cursor,
+body.custom-cursor * {
+  cursor: none !important;
+}
+
+@media (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring { display: none !important; }
+}
+
+/* ================================================
    SCROLL-UP — botão de voltar ao topo
    Aparece após rolar 400px; segue padrão Bedimcode
 ================================================ */

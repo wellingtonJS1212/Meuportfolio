@@ -447,6 +447,54 @@ function initContadores() {
 }
 
 /* ================================================
+   CURSOR PERSONALIZADO (padrão Bedimcode)
+   Bolinha + anel com delay suave (lerp)
+   Só ativa em dispositivos com mouse real
+================================================ */
+function initCursor() {
+  const dot  = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  if (!dot || !ring) return;
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  document.body.classList.add('custom-cursor');
+
+  let mx = window.innerWidth  / 2;
+  let my = window.innerHeight / 2;
+  let rx = mx, ry = my;
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+    dot.classList.add('visible');
+    ring.classList.add('visible');
+  });
+
+  /* Anel segue com interpolação suave (lerp 12%) */
+  (function loop() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(loop);
+  })();
+
+  /* Expande o anel ao passar em elementos interativos */
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest('a, button, input, textarea, .skill-item, .project-card, .cert-card')) {
+      ring.classList.add('is-hover');
+    }
+  });
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest('a, button, input, textarea, .skill-item, .project-card, .cert-card')) {
+      ring.classList.remove('is-hover');
+    }
+  });
+}
+
+/* ================================================
    SCROLL-UP — botão de voltar ao topo (padrão Bedimcode)
 ================================================ */
 function initScrollUp() {
@@ -575,6 +623,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCertificados();
   initCarrossel({ trackId: 'projects-grid', prevId: 'proj-prev',  nextId: 'proj-next',  dotsId: 'projects-dots', cardClass: '.project-card' });
   initCarrossel({ trackId: 'certs-grid',    prevId: 'certs-prev', nextId: 'certs-next', dotsId: 'certs-dots',    cardClass: '.cert-card'    });
+  initCursor();
   initTypewriter();
   initReveal();
   initNav();
