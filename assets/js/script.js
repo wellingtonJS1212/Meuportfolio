@@ -447,6 +447,18 @@ function initContadores() {
 }
 
 /* ================================================
+   SCROLL-UP — botão de voltar ao topo (padrão Bedimcode)
+================================================ */
+function initScrollUp() {
+  const btn = document.getElementById('scroll-up');
+  if (!btn) return;
+
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('show', window.scrollY >= 400);
+  }, { passive: true });
+}
+
+/* ================================================
    ANO NO FOOTER
 ================================================ */
 function setFooterYear() {
@@ -566,6 +578,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTypewriter();
   initReveal();
   initNav();
+  initScrollUp();
   initContadores();
   setFooterYear();
   initContato();

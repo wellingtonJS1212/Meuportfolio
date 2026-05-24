@@ -1089,6 +1089,36 @@ button { font-family: inherit; }
 .footer-copy { margin-top: var(--sp-2); }
 
 /* ================================================
+   SCROLL-UP — botão de voltar ao topo
+   Aparece após rolar 400px; segue padrão Bedimcode
+================================================ */
+.scrollup {
+  position: fixed;
+  right: var(--sp-6);
+  bottom: -60px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--grad-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-glow);
+  z-index: 999;
+  transition: bottom var(--t-base), transform var(--t-base), box-shadow var(--t-base);
+}
+
+.scrollup.show {
+  bottom: var(--sp-8);
+}
+
+.scrollup:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glow-hover);
+}
+
+/* ================================================
    RESPONSIVO — tablet (≤ 900px)
 ================================================ */
 @media (max-width: 900px) {
