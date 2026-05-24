@@ -478,7 +478,7 @@ function initCursor() {
 
   document.body.classList.add('custom-cursor');
 
-  const SCALE  = 4.0;   /* fator de ampliação */
+  const SCALE  = 3.0;   /* fator de ampliação */
   const RADIUS = 23;    /* metade dos 46px da lente */
 
   /* ── Constrói o clone após o conteúdo dinâmico renderizar ── */
@@ -495,10 +495,14 @@ function initCursor() {
   let my = window.innerHeight / 2;
   let rx = mx, ry = my;
 
-  /* Atualiza a posição do clone para centralizar (rx, ry) na lente */
+  /* Posiciona o clone via transform para que (rx, ry) fique no centro da lente.
+     translate(L, T) scale(S) — o CSS aplica da direita para esquerda:
+     1. scale(S) expande a partir da transform-origin (0,0)
+     2. translate(L, T) move o resultado para a posição certa            */
   function syncClone() {
-    clone.style.left = (RADIUS - rx * SCALE) + 'px';
-    clone.style.top  = (RADIUS - (ry + window.scrollY) * SCALE) + 'px';
+    const L = RADIUS - rx * SCALE;
+    const T = RADIUS - (ry + window.scrollY) * SCALE;
+    clone.style.transform = `translate(${L}px,${T}px) scale(${SCALE})`;
   }
 
   document.addEventListener('mousemove', (e) => {

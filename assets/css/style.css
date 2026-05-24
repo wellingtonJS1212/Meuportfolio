@@ -1159,14 +1159,17 @@ body.light-theme .theme-icon--moon { display: block; }
 }
 .mag-lens.visible { opacity: 1; }
 
-/* Clone da página — escalonado 2.5× dentro da lente */
+/* Clone da página dentro da lente */
 .mag-clone {
   position: absolute;
+  left: 0;
+  top: 0;
   width: 100vw;
+  min-height: 100vh;
+  background: var(--clr-bg);
   pointer-events: none;
-  transform: scale(2.5);
   transform-origin: 0 0;
-  will-change: left, top;
+  will-change: transform;
 }
 
 /* Reflexo de vidro na lente */
