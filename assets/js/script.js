@@ -447,6 +447,24 @@ function initContadores() {
 }
 
 /* ================================================
+   TOGGLE DARK / LIGHT THEME (inspirado no Bedimcode)
+   Salva preferência no localStorage
+================================================ */
+function initThemeToggle() {
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light-theme');
+  }
+
+  btn.addEventListener('click', () => {
+    const isLight = document.body.classList.toggle('light-theme');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+}
+
+/* ================================================
    CURSOR PERSONALIZADO (padrão Bedimcode)
    Bolinha + anel com delay suave (lerp)
    Só ativa em dispositivos com mouse real
@@ -623,6 +641,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCertificados();
   initCarrossel({ trackId: 'projects-grid', prevId: 'proj-prev',  nextId: 'proj-next',  dotsId: 'projects-dots', cardClass: '.project-card' });
   initCarrossel({ trackId: 'certs-grid',    prevId: 'certs-prev', nextId: 'certs-next', dotsId: 'certs-dots',    cardClass: '.cert-card'    });
+  initThemeToggle();
   initCursor();
   initTypewriter();
   initReveal();

@@ -266,6 +266,38 @@ button { font-family: inherit; }
   width: 100%;
 }
 
+/* Grupo de ações no canto direito do nav */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+/* Botão de alternância de tema */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--clr-glass-border);
+  background: var(--clr-glass);
+  color: var(--clr-text-muted);
+  cursor: pointer;
+  transition: background var(--t-base), border-color var(--t-base),
+              color var(--t-base), transform var(--t-base);
+}
+.theme-toggle:hover {
+  background: rgba(79, 70, 229, 0.12);
+  border-color: rgba(79, 70, 229, 0.4);
+  color: var(--clr-primary-light);
+  transform: rotate(22deg);
+}
+.theme-icon--moon { display: none; }
+body.light-theme .theme-icon--sun  { display: none; }
+body.light-theme .theme-icon--moon { display: block; }
+
 /* Botão hambúrguer (mobile) */
 .nav-toggle {
   display: none;
@@ -1173,6 +1205,115 @@ body.custom-cursor * {
 }
 
 /* ================================================
+   TEMA CLARO (inspirado no Bedimcode — hue 224°)
+   Ativado via body.light-theme
+================================================ */
+body {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body.light-theme {
+  --clr-primary:       hsl(224, 89%, 52%);
+  --clr-primary-light: hsl(224, 89%, 60%);
+  --clr-secondary:     hsl(224, 89%, 38%);
+  --clr-accent:        #0891b2;
+
+  --clr-bg:            #f0f4ff;
+  --clr-bg-alt:        #e4ecff;
+
+  --clr-text:          hsl(224, 56%, 12%);
+  --clr-text-muted:    hsl(224, 22%, 42%);
+
+  --clr-glass:         rgba(255, 255, 255, 0.7);
+  --clr-glass-border:  rgba(77, 127, 239, 0.2);
+
+  --grad-primary: linear-gradient(135deg, hsl(224, 89%, 52%), hsl(224, 89%, 38%));
+  --grad-text:    linear-gradient(135deg, hsl(224, 56%, 12%) 0%, hsl(224, 89%, 52%) 100%);
+  --grad-accent:  linear-gradient(135deg, hsl(224, 89%, 52%), #0891b2);
+
+  --shadow-sm:         0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md:         0 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-lg:         0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-glow:       0 0 30px rgba(58, 114, 236, 0.22);
+  --shadow-glow-hover: 0 0 50px rgba(58, 114, 236, 0.38);
+}
+
+/* Nav no tema claro */
+body.light-theme .nav.scrolled {
+  background: rgba(240, 244, 255, 0.92);
+}
+body.light-theme .nav-logo {
+  color: hsl(224, 56%, 12%);
+}
+
+/* Blobs do hero mais suaves no claro */
+body.light-theme .hero-blob--1,
+body.light-theme .hero-blob--2,
+body.light-theme .hero-blob--3 {
+  opacity: 0.12;
+}
+
+/* Cards com fundo branco semitransparente no claro */
+body.light-theme .project-card,
+body.light-theme .cert-card {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: rgba(77, 127, 239, 0.18);
+  box-shadow: 0 4px 20px rgba(58, 114, 236, 0.1);
+}
+body.light-theme .project-card:hover,
+body.light-theme .cert-card:hover {
+  border-color: rgba(58, 114, 236, 0.5);
+}
+
+/* Skill items */
+body.light-theme .skill-item {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(77, 127, 239, 0.18);
+}
+body.light-theme .skill-item:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(58, 114, 236, 0.45);
+}
+
+/* Stats border no claro */
+body.light-theme .about-stats {
+  border-top-color: rgba(58, 114, 236, 0.2);
+}
+body.light-theme .stat-number { color: hsl(224, 89%, 52%); }
+
+/* Formulário no claro */
+body.light-theme .form-group input,
+body.light-theme .form-group textarea {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(77, 127, 239, 0.22);
+  color: hsl(224, 56%, 12%);
+}
+body.light-theme .form-group input:focus,
+body.light-theme .form-group textarea:focus {
+  background: #fff;
+  border-color: hsl(224, 89%, 60%);
+  box-shadow: 0 0 0 3px rgba(58, 114, 236, 0.12);
+}
+body.light-theme .form-group input::placeholder,
+body.light-theme .form-group textarea::placeholder {
+  color: hsl(224, 22%, 55%);
+}
+
+/* Footer no claro */
+body.light-theme .footer {
+  border-top-color: rgba(77, 127, 239, 0.2);
+}
+
+/* Scroll-up no claro — mantém gradiente */
+body.light-theme .cursor-ring {
+  border-color: rgba(58, 114, 236, 0.55);
+}
+body.light-theme .cursor-ring.is-hover {
+  border-color: hsl(224, 89%, 60%);
+  background: rgba(58, 114, 236, 0.07);
+}
+
+/* ================================================
    RESPONSIVO — tablet (≤ 900px)
 ================================================ */
 @media (max-width: 900px) {
@@ -1216,6 +1357,12 @@ body.custom-cursor * {
     z-index: 999;
   }
   .nav-menu.open { transform: translateY(0); }
+
+  /* Menu mobile no tema claro */
+  body.light-theme .nav-menu {
+    background: rgba(240, 244, 255, 0.97);
+    border-bottom-color: rgba(77, 127, 239, 0.18);
+  }
 
   .hero-photo { width: 180px; height: 180px; }
   .hero-photo-ring { inset: -3px; }
