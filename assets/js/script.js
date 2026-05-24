@@ -465,45 +465,20 @@ function initThemeToggle() {
 }
 
 /* ================================================
-   CURSOR + LUPA — DOM clone real (magnifying glass)
-   A lente exibe uma cópia escalada da página,
-   posicionada para mostrar o conteúdo ao redor do cursor.
+   CURSOR PERSONALIZADO
+   Bolinha exata + anel transparente com lerp suave
 ================================================ */
 function initCursor() {
-  const dot   = document.getElementById('cursor-dot');
-  const lens  = document.getElementById('mag-lens');
-  const clone = document.getElementById('mag-clone');
-  if (!dot || !lens || !clone) return;
+  const dot  = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  if (!dot || !ring) return;
   if (window.matchMedia('(pointer: coarse)').matches) return;
 
   document.body.classList.add('custom-cursor');
 
-  const SCALE  = 3.0;   /* fator de ampliação */
-  const RADIUS = 23;    /* metade dos 46px da lente */
-
-  /* ── Constrói o clone após o conteúdo dinâmico renderizar ── */
-  setTimeout(() => {
-    const skip = new Set(['cursor-dot', 'mag-lens', 'scroll-up']);
-    [...document.body.children].forEach((child) => {
-      if (!skip.has(child.id)) clone.appendChild(child.cloneNode(true));
-    });
-    /* Remove elementos com position:fixed que distorceriam a lente */
-    clone.querySelectorAll('#nav, .scrollup, script, noscript').forEach((el) => el.remove());
-  }, 800);
-
   let mx = window.innerWidth  / 2;
   let my = window.innerHeight / 2;
   let rx = mx, ry = my;
-
-  /* Posiciona o clone via transform para que (rx, ry) fique no centro da lente.
-     translate(L, T) scale(S) — o CSS aplica da direita para esquerda:
-     1. scale(S) expande a partir da transform-origin (0,0)
-     2. translate(L, T) move o resultado para a posição certa            */
-  function syncClone() {
-    const L = RADIUS - rx * SCALE;
-    const T = RADIUS - (ry + window.scrollY) * SCALE;
-    clone.style.transform = `translate(${L}px,${T}px) scale(${SCALE})`;
-  }
 
   document.addEventListener('mousemove', (e) => {
     mx = e.clientX;
@@ -511,26 +486,34 @@ function initCursor() {
     dot.style.left = mx + 'px';
     dot.style.top  = my + 'px';
     dot.classList.add('visible');
-    lens.classList.add('visible');
+    ring.classList.add('visible');
   });
 
   document.addEventListener('mouseleave', () => {
     dot.classList.remove('visible');
-    lens.classList.remove('visible');
+    ring.classList.remove('visible');
   });
 
-  /* Sincroniza clone no scroll (página se move, clone acompanha) */
-  window.addEventListener('scroll', syncClone, { passive: true });
-
-  /* Loop: lente segue cursor com lerp suave */
+  /* Anel segue com interpolação suave (lerp 12%) */
   (function loop() {
-    rx += (mx - rx) * 0.13;
-    ry += (my - ry) * 0.13;
-    lens.style.left = rx + 'px';
-    lens.style.top  = ry + 'px';
-    syncClone();
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
     requestAnimationFrame(loop);
   })();
+
+  /* Expande levemente ao passar em elementos interativos */
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest('a, button, input, textarea, .project-card, .cert-card, .skill-item')) {
+      ring.classList.add('is-hover');
+    }
+  });
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest('a, button, input, textarea, .project-card, .cert-card, .skill-item')) {
+      ring.classList.remove('is-hover');
+    }
+  });
 }
 
 /* ================================================

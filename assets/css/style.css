@@ -1121,80 +1121,50 @@ body.light-theme .theme-icon--moon { display: block; }
 .footer-copy { margin-top: var(--sp-2); }
 
 /* ================================================
-   CURSOR + LUPA (DOM clone — magnifying glass real)
-   Só ativa em dispositivos com mouse (pointer: fine)
+   CURSOR PERSONALIZADO
+   Bolinha + anel transparente seguindo o ponteiro
 ================================================ */
-.cursor-dot {
+.cursor-dot,
+.cursor-ring {
   position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity var(--t-base);
+}
+
+.cursor-dot {
   width: 5px;
   height: 5px;
-  border-radius: 50%;
   background: var(--clr-primary-light);
-  box-shadow: 0 0 8px rgba(99, 102, 241, 0.85);
-  pointer-events: none;
   z-index: 10001;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity var(--t-base);
 }
-.cursor-dot.visible { opacity: 1; }
 
-/* Lente da lupa */
-.mag-lens {
-  position: fixed;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  overflow: hidden;
-  pointer-events: none;
+.cursor-ring {
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid rgba(99, 102, 241, 0.6);
+  background: transparent;
   z-index: 10000;
-  transform: translate(-50%, -50%);
-  border: 2px solid rgba(99, 102, 241, 0.65);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.07),
-    0 0 0 1px rgba(99, 102, 241, 0.18),
-    0 0 32px rgba(99, 102, 241, 0.42);
-  opacity: 0;
-  transition: opacity var(--t-base);
-}
-.mag-lens.visible { opacity: 1; }
-
-/* Clone da página dentro da lente */
-.mag-clone {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  min-height: 100vh;
-  background: var(--clr-bg);
-  pointer-events: none;
-  transform-origin: 0 0;
-  will-change: transform;
+  transition: opacity var(--t-base), width 0.25s ease, height 0.25s ease;
 }
 
-/* Reflexo de vidro na lente */
-.mag-shine {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: radial-gradient(
-    ellipse at 32% 28%,
-    rgba(255, 255, 255, 0.16) 0%,
-    rgba(255, 255, 255, 0.04) 42%,
-    transparent 68%
-  );
-  pointer-events: none;
-  z-index: 1;
+.cursor-ring.is-hover {
+  width: 40px;
+  height: 40px;
+  border-color: rgba(99, 102, 241, 0.9);
 }
+
+.cursor-dot.visible,
+.cursor-ring.visible { opacity: 1; }
 
 body.custom-cursor,
-body.custom-cursor * {
-  cursor: none !important;
-}
+body.custom-cursor * { cursor: none !important; }
 
 @media (pointer: coarse) {
   .cursor-dot,
-  .mag-lens { display: none !important; }
+  .cursor-ring { display: none !important; }
 }
 
 /* ================================================
@@ -1327,13 +1297,9 @@ body.light-theme .footer {
   border-top-color: rgba(77, 127, 239, 0.2);
 }
 
-/* Lupa no tema claro — borda azul */
-body.light-theme .mag-lens {
-  border-color: rgba(58, 114, 236, 0.65);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-    0 0 0 1px rgba(58, 114, 236, 0.2),
-    0 0 32px rgba(58, 114, 236, 0.32);
+/* Anel do cursor no tema claro */
+body.light-theme .cursor-ring {
+  border-color: rgba(58, 114, 236, 0.6);
 }
 
 /* ================================================
