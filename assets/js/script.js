@@ -465,36 +465,41 @@ function initThemeToggle() {
 }
 
 /* ================================================
-   CURSOR PERSONALIZADO — LUPA (padrão Bedimcode)
-   Bolinha precisa + anel que vira lupa sobre textos
-   Só ativa em dispositivos com mouse real
+   CURSOR + LUPA — DOM clone real (magnifying glass)
+   A lente exibe uma cópia escalada da página,
+   posicionada para mostrar o conteúdo ao redor do cursor.
 ================================================ */
 function initCursor() {
-  const dot     = document.getElementById('cursor-dot');
-  const ring    = document.getElementById('cursor-ring');
-  const magText = document.getElementById('cursor-mag-text');
-  if (!dot || !ring) return;
+  const dot   = document.getElementById('cursor-dot');
+  const lens  = document.getElementById('mag-lens');
+  const clone = document.getElementById('mag-clone');
+  if (!dot || !lens || !clone) return;
   if (window.matchMedia('(pointer: coarse)').matches) return;
 
   document.body.classList.add('custom-cursor');
 
+  const SCALE  = 2.5;   /* fator de ampliação */
+  const RADIUS = 70;    /* metade dos 140px da lente */
+
+  /* ── Constrói o clone após o conteúdo dinâmico renderizar ── */
+  setTimeout(() => {
+    const skip = new Set(['cursor-dot', 'mag-lens', 'scroll-up']);
+    [...document.body.children].forEach((child) => {
+      if (!skip.has(child.id)) clone.appendChild(child.cloneNode(true));
+    });
+    /* Remove elementos com position:fixed que distorceriam a lente */
+    clone.querySelectorAll('#nav, .scrollup, script, noscript').forEach((el) => el.remove());
+  }, 800);
+
   let mx = window.innerWidth  / 2;
   let my = window.innerHeight / 2;
   let rx = mx, ry = my;
-  let lastTextEl = null;
 
-  /* Seletor dos elementos que ativam a lupa */
-  const TEXT_SELECTOR = [
-    'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-    '.hero-greeting', '.hero-name', '.hero-subtitle', '.hero-bio',
-    '.section-title', '.section-tag',
-    '.about-text p', '.skill-name',
-    '.project-title', '.project-desc',
-    '.cert-title', '.cert-inst',
-    '.stat-label', '.stat-number',
-    '.contact-info p', '.contact-form-title',
-    '.nav-link', 'label', 'li',
-  ].join(', ');
+  /* Atualiza a posição do clone para centralizar (rx, ry) na lente */
+  function syncClone() {
+    clone.style.left = (RADIUS - rx * SCALE) + 'px';
+    clone.style.top  = (RADIUS - (ry + window.scrollY) * SCALE) + 'px';
+  }
 
   document.addEventListener('mousemove', (e) => {
     mx = e.clientX;
@@ -502,57 +507,26 @@ function initCursor() {
     dot.style.left = mx + 'px';
     dot.style.top  = my + 'px';
     dot.classList.add('visible');
-    ring.classList.add('visible');
+    lens.classList.add('visible');
   });
 
-  /* Anel segue com lerp 12% + lógica de lupa */
+  document.addEventListener('mouseleave', () => {
+    dot.classList.remove('visible');
+    lens.classList.remove('visible');
+  });
+
+  /* Sincroniza clone no scroll (página se move, clone acompanha) */
+  window.addEventListener('scroll', syncClone, { passive: true });
+
+  /* Loop: lente segue cursor com lerp suave */
   (function loop() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-
-    if (magText) {
-      /* pointer-events: none já aplicado ao ring e ao span,
-         então elementFromPoint retorna o elemento abaixo */
-      const el     = document.elementFromPoint(rx, ry);
-      const textEl = el?.closest(TEXT_SELECTOR);
-
-      if (textEl && textEl !== lastTextEl) {
-        lastTextEl = textEl;
-        const style      = getComputedStyle(textEl);
-        const origPx     = parseFloat(style.fontSize);
-        const scaledPx   = Math.min(origPx * 1.65, 16);
-        const snippet    = textEl.textContent.trim();
-
-        magText.style.fontSize   = scaledPx + 'px';
-        magText.style.fontWeight = style.fontWeight;
-        magText.textContent      = snippet.slice(0, 90);
-        magText.style.opacity    = '1';
-        ring.classList.add('is-magnifying');
-      } else if (!textEl && lastTextEl) {
-        lastTextEl = null;
-        magText.style.opacity  = '0';
-        magText.style.fontSize = '0px';
-        ring.classList.remove('is-magnifying');
-      }
-    }
-
+    rx += (mx - rx) * 0.13;
+    ry += (my - ry) * 0.13;
+    lens.style.left = rx + 'px';
+    lens.style.top  = ry + 'px';
+    syncClone();
     requestAnimationFrame(loop);
   })();
-
-  /* Hover em elementos interativos não-texto (cards, inputs) */
-  document.addEventListener('mouseover', (e) => {
-    if (!ring.classList.contains('is-magnifying') &&
-        e.target.closest('a, button, input, textarea, .skill-item, .project-card, .cert-card')) {
-      ring.classList.add('is-hover');
-    }
-  });
-  document.addEventListener('mouseout', (e) => {
-    if (e.target.closest('a, button, input, textarea, .skill-item, .project-card, .cert-card')) {
-      ring.classList.remove('is-hover');
-    }
-  });
 }
 
 /* ================================================
