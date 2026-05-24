@@ -465,13 +465,14 @@ function initThemeToggle() {
 }
 
 /* ================================================
-   CURSOR PERSONALIZADO (padrão Bedimcode)
-   Bolinha + anel com delay suave (lerp)
+   CURSOR PERSONALIZADO — LUPA (padrão Bedimcode)
+   Bolinha precisa + anel que vira lupa sobre textos
    Só ativa em dispositivos com mouse real
 ================================================ */
 function initCursor() {
-  const dot  = document.getElementById('cursor-dot');
-  const ring = document.getElementById('cursor-ring');
+  const dot     = document.getElementById('cursor-dot');
+  const ring    = document.getElementById('cursor-ring');
+  const magText = document.getElementById('cursor-mag-text');
   if (!dot || !ring) return;
   if (window.matchMedia('(pointer: coarse)').matches) return;
 
@@ -480,6 +481,20 @@ function initCursor() {
   let mx = window.innerWidth  / 2;
   let my = window.innerHeight / 2;
   let rx = mx, ry = my;
+  let lastTextEl = null;
+
+  /* Seletor dos elementos que ativam a lupa */
+  const TEXT_SELECTOR = [
+    'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+    '.hero-greeting', '.hero-name', '.hero-subtitle', '.hero-bio',
+    '.section-title', '.section-tag',
+    '.about-text p', '.skill-name',
+    '.project-title', '.project-desc',
+    '.cert-title', '.cert-inst',
+    '.stat-label', '.stat-number',
+    '.contact-info p', '.contact-form-title',
+    '.nav-link', 'label', 'li',
+  ].join(', ');
 
   document.addEventListener('mousemove', (e) => {
     mx = e.clientX;
@@ -490,18 +505,46 @@ function initCursor() {
     ring.classList.add('visible');
   });
 
-  /* Anel segue com interpolação suave (lerp 12%) */
+  /* Anel segue com lerp 12% + lógica de lupa */
   (function loop() {
     rx += (mx - rx) * 0.12;
     ry += (my - ry) * 0.12;
     ring.style.left = rx + 'px';
     ring.style.top  = ry + 'px';
+
+    if (magText) {
+      /* pointer-events: none já aplicado ao ring e ao span,
+         então elementFromPoint retorna o elemento abaixo */
+      const el     = document.elementFromPoint(rx, ry);
+      const textEl = el?.closest(TEXT_SELECTOR);
+
+      if (textEl && textEl !== lastTextEl) {
+        lastTextEl = textEl;
+        const style      = getComputedStyle(textEl);
+        const origPx     = parseFloat(style.fontSize);
+        const scaledPx   = Math.min(origPx * 1.65, 16);
+        const snippet    = textEl.textContent.trim();
+
+        magText.style.fontSize   = scaledPx + 'px';
+        magText.style.fontWeight = style.fontWeight;
+        magText.textContent      = snippet.slice(0, 90);
+        magText.style.opacity    = '1';
+        ring.classList.add('is-magnifying');
+      } else if (!textEl && lastTextEl) {
+        lastTextEl = null;
+        magText.style.opacity  = '0';
+        magText.style.fontSize = '0px';
+        ring.classList.remove('is-magnifying');
+      }
+    }
+
     requestAnimationFrame(loop);
   })();
 
-  /* Expande o anel ao passar em elementos interativos */
+  /* Hover em elementos interativos não-texto (cards, inputs) */
   document.addEventListener('mouseover', (e) => {
-    if (e.target.closest('a, button, input, textarea, .skill-item, .project-card, .cert-card')) {
+    if (!ring.classList.contains('is-magnifying') &&
+        e.target.closest('a, button, input, textarea, .skill-item, .project-card, .cert-card')) {
       ring.classList.add('is-hover');
     }
   });

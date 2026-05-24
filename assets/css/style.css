@@ -1147,16 +1147,69 @@ body.light-theme .theme-icon--moon { display: block; }
   height: 36px;
   border: 1.5px solid rgba(99, 102, 241, 0.55);
   z-index: 9998;
-  transition: width 0.25s ease, height 0.25s ease,
-              border-color 0.25s ease, background 0.25s ease,
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.28s ease, height 0.28s ease,
+              border-color 0.28s ease, background 0.28s ease,
+              backdrop-filter 0.28s ease, box-shadow 0.28s ease,
               opacity var(--t-base);
 }
 
-.cursor-ring.is-hover {
+/* Hover em elementos interativos (sem texto) */
+.cursor-ring.is-hover:not(.is-magnifying) {
   width: 56px;
   height: 56px;
   border-color: rgba(99, 102, 241, 0.9);
   background: rgba(99, 102, 241, 0.07);
+}
+
+/* Lupa ativa — anel sobre texto */
+.cursor-ring.is-magnifying {
+  width: 100px;
+  height: 100px;
+  border-color: rgba(99, 102, 241, 0.85);
+  background: rgba(8, 12, 30, 0.78);
+  backdrop-filter: blur(3px) brightness(1.18);
+  -webkit-backdrop-filter: blur(3px) brightness(1.18);
+  box-shadow: inset 0 0 0 1px rgba(99, 102, 241, 0.2),
+              0 0 28px rgba(99, 102, 241, 0.4);
+}
+
+/* Texto ampliado dentro da lupa */
+.cursor-mag-text {
+  position: absolute;
+  width: 88px;
+  font-family: var(--font, 'Poppins', sans-serif);
+  font-size: 0px;
+  font-weight: 400;
+  color: #fff;
+  text-align: center;
+  padding: 0 8px;
+  line-height: 1.3;
+  white-space: normal;
+  word-break: break-word;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transition: font-size 0.22s ease, opacity 0.22s ease;
+}
+
+/* Tema claro — lupa com fundo claro */
+body.light-theme .cursor-ring.is-magnifying {
+  background: rgba(240, 244, 255, 0.88);
+  backdrop-filter: blur(3px) brightness(0.96);
+  -webkit-backdrop-filter: blur(3px) brightness(0.96);
+  box-shadow: inset 0 0 0 1px rgba(58, 114, 236, 0.3),
+              0 0 28px rgba(58, 114, 236, 0.3);
+}
+body.light-theme .cursor-mag-text {
+  color: hsl(224, 56%, 12%);
 }
 
 .cursor-dot.visible,
